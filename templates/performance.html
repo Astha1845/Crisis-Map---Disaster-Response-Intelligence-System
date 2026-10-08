@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Model Performance{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Model Performance</h1>
+  <p>How well the trained models perform on data they have not seen.</p>
+</div>
+
+<div class="grid g2 keep">
+  <div class="card acc-card"><span class="acc-label">Decision Tree Accuracy</span><span class="acc-value" id="m-dt">–</span><div class="bar"><i id="b-dt" style="width:0"></i></div><span class="acc-note">Emergency priority · held-out test set</span></div>
+  <div class="card acc-card teal"><span class="acc-label">Naive Bayes Accuracy</span><span class="acc-value" id="m-nb">–</span><div class="bar"><i id="b-nb" style="width:0"></i></div><span class="acc-note">Emergency priority · held-out test set</span></div>
+</div>
+
+<div class="grid g2 keep mt">
+  <div class="card">
+    <h2>Accuracy Comparison</h2><p class="sub">Share of test incidents given the correct priority</p>
+    <div class="chart-box short"><canvas id="c-acc"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>Decision Tree Confusion Matrix</h2><p class="sub">Each row is the actual priority; each column is what the model predicted</p>
+    <div id="cm"></div>
+    <div class="interp" id="interp"></div>
+  </div>
+</div>
+
+<div class="card mt">
+  <h2>Resource Prediction Performance</h2><p class="sub">How closely the regression model estimates resource demand</p>
+  <div class="reg-mini">
+    <div class="tile blue"><div class="t-label">R² Score</div><div class="t-value" id="m-r2">–</div><div class="t-unit">1.0 would be a perfect fit</div></div>
+    <div class="tile teal"><div class="t-label">MAE (mean absolute error)</div><div class="t-value" id="m-mae">–</div><div class="t-unit">average across the 4 resources</div><div class="mae-row" id="mae-list"></div></div>
+  </div>
+</div>
+<div class="error" id="err" hidden></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/performance.js') }}"></script>{% endblock %}

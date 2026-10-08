@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Dashboard</h1>
+  <p>Live overview of disaster impact and resource demand across states.</p>
+</div>
+
+<div class="toolbar">
+  <div class="field"><label for="f-year">Year</label><select id="f-year"><option value="">All years</option></select></div>
+  <div class="field"><label for="f-state">State</label><select id="f-state"><option value="">All states</option></select></div>
+  <div class="field"><label for="f-type">Disaster type</label><select id="f-type"><option value="">All types</option></select></div>
+  <button class="btn ghost small" id="f-reset" type="button">Reset filters</button>
+</div>
+
+<div class="grid g4">
+  <div class="card stat"><div class="stat-ico blue">🌪️</div><div><div class="stat-label">Total Disasters</div><div class="stat-value" id="k-total">–</div><div class="stat-note" id="k-total-n">&nbsp;</div></div></div>
+  <div class="card stat"><div class="stat-ico teal">👥</div><div><div class="stat-label">Affected Population</div><div class="stat-value" id="k-pop">–</div><div class="stat-note">people affected</div></div></div>
+  <div class="card stat"><div class="stat-ico coral">⚠️</div><div><div class="stat-label">Critical Areas</div><div class="stat-value" id="k-crit">–</div><div class="stat-note">critical-priority incidents</div></div></div>
+  <div class="card stat"><div class="stat-ico peach">📦</div><div><div class="stat-label">Resources Required</div><div class="stat-value" id="k-res">–</div><div class="stat-note" id="k-res-n">&nbsp;</div></div></div>
+</div>
+
+<div class="grid g2 keep mt">
+  <div class="card">
+    <h2>Disasters by Type</h2><p class="sub">Number of recorded incidents</p>
+    <div class="chart-box donut"><canvas id="c-type"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>Emergency Priority Distribution</h2><p class="sub">Share of incidents by priority level</p>
+    <div class="chart-box donut"><canvas id="c-priority"></canvas></div>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="card-head">
+    <div><h2>Affected Population Over Time</h2><p class="sub" id="trend-sub">Click a year to drill down into its months</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="btn ghost small" id="back-btn" type="button" hidden>← All years</button>
+      <div class="seg" id="grain-seg">
+        <button data-grain="year" class="on" type="button">Year</button>
+        <button data-grain="quarter" type="button">Quarter</button>
+        <button data-grain="month" type="button">Month</button>
+      </div>
+    </div>
+  </div>
+  <div class="chart-box"><canvas id="c-trend"></canvas></div>
+</div>
+
+<div class="grid g-main mt">
+  <div class="card">
+    <h2>Resource Demand by Disaster Type</h2><p class="sub">Average requirement per incident</p>
+    <div class="chart-box tall"><canvas id="c-res"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>Recent Emergency Insights</h2><p class="sub">Calculated from the current selection</p>
+    <div id="insights"></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>{% endblock %}

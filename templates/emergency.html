@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Emergency Prediction{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Emergency Prediction</h1>
+  <p>Enter the conditions of an incident to estimate its emergency priority.</p>
+</div>
+
+<div class="grid g-main">
+  <form class="card" id="form" novalidate>
+    <h2>Incident details</h2><p class="sub">Defaults are typical values from the dataset.</p>
+    <div class="form-grid">
+      <div class="field"><label for="Disaster_Type">Disaster type</label><select id="Disaster_Type" name="Disaster_Type"></select></div>
+      <div class="field"><label for="Damage_Level">Damage level</label><select id="Damage_Level" name="Damage_Level"></select></div>
+      <div class="field"><label for="Rainfall_mm">Rainfall (mm)</label><input id="Rainfall_mm" name="Rainfall_mm" type="number" step="any" min="0" required><span class="hint" id="h-Rainfall_mm"></span></div>
+      <div class="field"><label for="Water_Level_m">Water level (m)</label><input id="Water_Level_m" name="Water_Level_m" type="number" step="any" min="0" required><span class="hint" id="h-Water_Level_m"></span></div>
+      <div class="field"><label for="Population_Affected">Population affected</label><input id="Population_Affected" name="Population_Affected" type="number" step="1" min="0" required><span class="hint" id="h-Population_Affected"></span></div>
+      <div class="field"><label for="Shelter_Availability">Shelter availability</label><select id="Shelter_Availability" name="Shelter_Availability"></select></div>
+      <div class="full"><button class="btn" type="submit" id="submit">Predict emergency priority</button></div>
+    </div>
+    <div class="error" id="err" hidden></div>
+  </form>
+
+  <div class="card" id="result">
+    <div class="empty"><span class="big">🚨</span>Submit the form to see the predicted priority and risk.</div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/emergency.js') }}"></script>{% endblock %}

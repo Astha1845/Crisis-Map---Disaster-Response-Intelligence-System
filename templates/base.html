@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Dashboard{% endblock %} · Disaster Response Intelligence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">🛟</div>
+      <div class="brand-name">Disaster Response<small>Resource Intelligence</small></div>
+    </div>
+    <nav class="nav">
+      <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active == 'dashboard' }}"><span class="ico">🏠</span>Dashboard</a>
+      <a href="{{ url_for('emergency') }}" class="{{ 'active' if active == 'emergency' }}"><span class="ico">🚨</span>Emergency Prediction</a>
+      <a href="{{ url_for('resources') }}" class="{{ 'active' if active == 'resources' }}"><span class="ico">📦</span>Resource Prediction</a>
+      <a href="{{ url_for('insights') }}" class="{{ 'active' if active == 'insights' }}"><span class="ico">🔍</span>Disaster Insights</a>
+      <a href="{{ url_for('performance') }}" class="{{ 'active' if active == 'performance' }}"><span class="ico">📊</span>Model Performance</a>
+    </nav>
+  </aside>
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

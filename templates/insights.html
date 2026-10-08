@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Disaster Insights{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Disaster Insights</h1>
+  <p>How affected areas group by impact, and which conditions tend to occur together.</p>
+</div>
+
+<h2 class="section-title">Affected Area Groups</h2>
+<p class="section-lead">Incidents are grouped with K-Means on population, infrastructure damage, houses damaged, casualties and medical need.</p>
+<div class="grid g-main keep">
+  <div class="card">
+    <h2>Impact Cluster Distribution</h2><p class="sub">Number of incidents in each impact group</p>
+    <div class="chart-box short"><canvas id="c-dist"></canvas></div>
+  </div>
+  <div class="groups" id="groups"></div>
+</div>
+
+<div class="card mt">
+  <h2>Population vs Infrastructure Damage</h2>
+  <p class="sub">Each point is an incident, coloured by impact group — larger affected populations tend to bring higher infrastructure damage.</p>
+  <div class="chart-box tall"><canvas id="c-cluster"></canvas></div>
+</div>
+
+<div class="card mt">
+  <h2>States with the most severe impact</h2><p class="sub">Share of incidents falling in the High or Critical impact groups</p>
+  <div class="chart-box short"><canvas id="c-states"></canvas></div>
+</div>
+
+<h2 class="section-title">Disaster Patterns</h2>
+<p class="section-lead" id="pattern-sub"></p>
+<div class="ic-grid" id="top-rules"></div>
+
+<div class="card mt-lg">
+  <h2>All Discovered Patterns</h2>
+  <p class="sub" id="table-sub"></p>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Pattern</th><th>Outcome</th><th class="num">Support</th><th class="num">Confidence</th><th class="num">Lift</th></tr></thead>
+      <tbody id="rules-body"></tbody>
+    </table>
+  </div>
+</div>
+<div class="error" id="err" hidden></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/insights.js') }}"></script>{% endblock %}

@@ -1,0 +1,20 @@
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local development artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.zip

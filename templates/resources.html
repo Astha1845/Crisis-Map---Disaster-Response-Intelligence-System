@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Resource Prediction{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Resource Prediction</h1>
+  <p>Estimate the food, water, medical kits and shelter needed for an incident.</p>
+</div>
+
+<div class="grid g-main">
+  <form class="card" id="form" novalidate>
+    <h2>Incident scale</h2><p class="sub">Defaults are typical values from the dataset.</p>
+    <div class="form-grid">
+      <div class="field"><label for="Population_Affected">Population affected</label><input id="Population_Affected" name="Population_Affected" type="number" step="1" min="0" required><span class="hint" id="h-Population_Affected"></span></div>
+      <div class="field"><label for="Damage_Level">Damage level</label><select id="Damage_Level" name="Damage_Level"></select></div>
+      <div class="field"><label for="Disaster_Duration_Days">Disaster duration (days)</label><input id="Disaster_Duration_Days" name="Disaster_Duration_Days" type="number" step="1" min="0" required><span class="hint" id="h-Disaster_Duration_Days"></span></div>
+      <div class="field"><label for="Medical_Need">Medical need (index)</label><input id="Medical_Need" name="Medical_Need" type="number" step="any" min="0" required><span class="hint" id="h-Medical_Need"></span></div>
+      <div class="full"><button class="btn" type="submit" id="submit">Predict resource demand</button></div>
+    </div>
+    <div class="error" id="err" hidden></div>
+  </form>
+
+  <div class="card" id="result">
+    <div class="empty"><span class="big">📦</span>Submit the form to see the estimated resource demand.</div>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="card-head">
+    <div><h2>Actual vs Predicted Resource Demand</h2><p class="sub">Held-out test incidents — points close to the line are accurate predictions</p></div>
+    <div class="seg" id="target-seg"></div>
+  </div>
+  <div class="chart-box tall"><canvas id="c-avp"></canvas></div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/resources.js') }}"></script>{% endblock %}
